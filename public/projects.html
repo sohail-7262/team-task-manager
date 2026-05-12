@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow — Projects</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <button class="mobile-toggle" aria-label="Menu">☰</button>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1>📁 <span>Projects</span></h1>
+        <button class="btn btn-primary" id="createProjectBtn" onclick="openCreateModal()" style="display:none">+ New Project</button>
+      </div>
+      <div id="projectsList"><div class="page-loader"><span class="spinner"></span></div></div>
+    </main>
+  </div>
+  <!-- Create/Edit Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal">
+      <div class="modal-header"><h2 id="modalTitle">New Project</h2><button class="modal-close" onclick="closeModal()">✕</button></div>
+      <form id="projectForm" onsubmit="handleProjectSubmit(event)">
+        <div class="form-group"><label for="projName">Project Name</label><input type="text" id="projName" required minlength="2" maxlength="100" placeholder="My Project"></div>
+        <div class="form-group"><label for="projDesc">Description</label><textarea id="projDesc" rows="3" maxlength="500" placeholder="Brief description..." style="resize:vertical"></textarea></div>
+        <input type="hidden" id="projId">
+        <div class="modal-actions"><button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button><button type="submit" class="btn btn-primary" id="projSubmitBtn">Create</button></div>
+      </form>
+    </div>
+  </div>
+  <!-- Members Modal -->
+  <div class="modal-overlay" id="membersModal">
+    <div class="modal">
+      <div class="modal-header"><h2>👥 Manage Members</h2><button class="modal-close" onclick="closeMembersModal()">✕</button></div>
+      <div id="membersList"></div>
+      <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px">
+        <h3 style="font-size:14px;margin-bottom:12px">Add Member</h3>
+        <form onsubmit="handleAddMember(event)" style="display:flex;gap:8px">
+          <input type="email" id="memberEmail" placeholder="user@example.com" required style="flex:1;padding:10px 14px;background:var(--bg-glass);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:inherit;font-size:14px;outline:none">
+          <button type="submit" class="btn btn-primary btn-sm">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/projects.js"></script>
+</body>
+</html>
