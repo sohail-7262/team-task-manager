@@ -1,11 +1,18 @@
-require('dotenv').config();
+// Only load .env file in development (Railway injects env vars directly in production)
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const connectDB = require('./config/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Debug: log env var presence (not values) to help diagnose deployment issues
+console.log('🔍 ENV check — MONGODB_URI:', process.env.MONGODB_URI ? 'SET ✅' : 'MISSING ❌');
+console.log('🔍 ENV check — JWT_SECRET:', process.env.JWT_SECRET ? 'SET ✅' : 'MISSING ❌');
+console.log('🔍 ENV check — NODE_ENV:', process.env.NODE_ENV || 'not set');
 
 // Connect to MongoDB
 connectDB();
