@@ -16,7 +16,7 @@ async function api(endpoint, options = {}) {
   const res = await fetch(`${API_BASE}${endpoint}`, { ...options, headers });
   const data = await res.json();
   
-  if (res.status === 401) {
+  if (res.status === 401 && token && !endpoint.startsWith('/auth/')) {
     removeToken();
     window.location.href = '/';
     throw new Error('Session expired');
